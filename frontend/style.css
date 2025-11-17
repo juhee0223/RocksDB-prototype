@@ -11,9 +11,9 @@ body {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 1rem 3rem;
+  padding: 1.25rem 1rem 1.5rem;
 }
 
 header {
@@ -68,13 +68,19 @@ button:hover {
 }
 
 .result {
-  background: #0f172a;
-  color: #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
   padding: 0.75rem;
   border-radius: 6px;
   min-height: 2rem;
   font-size: 0.9rem;
   overflow-x: auto;
+}
+
+/* Keep keys table within viewport using internal scroll */
+.keys-scroll {
+  max-height: calc(70vh - 220px);
+  overflow-y: auto;
 }
 
 .stats {
@@ -83,3 +89,108 @@ button:hover {
   font-size: 1.1rem;
   margin-bottom: 1rem;
 }
+
+/* UX polish: result states and disabled button styling */
+.result.success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #bbf7d0;
+}
+
+.result.error {
+  background: #fff1f2;
+  color: #9f1239;
+  border: 1px solid #fecaca;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* small spinner for future use (kept minimal) */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: rgba(255,255,255,0.8);
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Dashboard grid layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+/* storage-card should span both columns */
+.storage-card {
+  grid-column: 1 / -1;
+}
+
+.placeholder-card {
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.placeholder-box {
+  border: 1px dashed #dbe1e7;
+  border-radius: 6px;
+  padding: 0.75rem;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+/* Make dashboard responsive */
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .storage-card { grid-column: auto; }
+}
+
+/* Slight visual tweak for titles */
+.card-title { font-weight: 600; }
+
+/* Make the keys area scroll a bit taller on large screens */
+.keys-scroll { max-height: calc(60vh - 180px); }
+
+/* Recent activity list inside placeholder card */
+.recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.375rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.recent-list li {
+  background: #fbfdff;
+  border: 1px solid #e6eef8;
+  padding: 0.45rem 0.6rem;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.88rem;
+  color: #0f172a;
+}
+.placeholder-card .btn { padding: 0.35rem 0.6rem; }
+
+/* Small status messages for PUT/GET */
+.status-message { font-size: 0.95rem; min-height: 1.2rem; }
+.status-success { color: #065f46; background: #ecfdf5; border: 1px solid #bbf7d0; padding: 0.35rem 0.5rem; border-radius: 6px; display: inline-block; }
+.status-error { color: #9f1239; background: #fff1f2; border: 1px solid #fecaca; padding: 0.35rem 0.5rem; border-radius: 6px; display: inline-block; }
+
+/* Input error state (red border) */
+.input-error { box-shadow: 0 0 0 2px rgba(255,0,0,0.06); border-color: #e11d48 !important; }
